@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import photo from "./assets/photo.jpeg";
+
 // ── DATA ──────────────────────────────────────────────────────────────────────
 const NAV_LINKS = ["À propos", "Compétences", "Expérience", "Projets", "Formation", "Contact"];
 
@@ -225,7 +225,7 @@ const injectStyles = () => {
     .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 420px; gap: 6rem; align-items: center; position: relative; z-index: 1; }
     .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--green); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
     .hero-eyebrow::before { content: ''; width: 2.5rem; height: 1px; background: var(--green); }
-    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 5.5vw, 6rem); font-weight: 400; line-height: 1.0; margin-bottom: 0.5rem; }
+    .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 5.5vw, 6rem); font-weight: 400; line-height: 1.0; margin-bottom: 0.5rem; color: #ffffff; }
     .hero-name-italic { font-style: italic; color: var(--green); }
     .hero-role { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--muted); margin: 1.5rem 0 1rem; letter-spacing: 0.05em; }
     .hero-role span { color: var(--blue); }
@@ -253,6 +253,7 @@ const injectStyles = () => {
       background: var(--surface); border: 1px solid var(--border2); border-radius: 20px;
       padding: 2.5rem; position: relative; overflow: hidden;
       animation: floatCard 6s ease-in-out infinite;
+      text-align: center;
     }
     @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
     .profile-card::before {
@@ -265,16 +266,16 @@ const injectStyles = () => {
       border: 1px solid rgba(110,231,183,0.2);
       display: flex; align-items: center; justify-content: center;
       font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic;
-      color: var(--green); margin-bottom: 1.2rem;
+      color: var(--green); margin: 0 auto 1.2rem auto; overflow: hidden;
     }
-    .profile-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.2rem; }
-    .profile-title { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .profile-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.2rem; text-align: center; color: #ffffff; }
+    .profile-title { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center; }
     .profile-divider { height: 1px; background: var(--border); margin: 1.2rem 0; }
     .profile-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
     .pstat { text-align: center; }
     .pstat-val { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--green); display: block; line-height: 1; }
     .pstat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-    .profile-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .profile-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
     .chip { padding: 0.3rem 0.75rem; background: rgba(110,231,183,0.06); border: 1px solid rgba(110,231,183,0.15); border-radius: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--green); letter-spacing: 0.05em; }
 
     /* SECTION BASE */
@@ -282,7 +283,7 @@ const injectStyles = () => {
     .section-inner { max-width: 1200px; margin: 0 auto; }
     .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--green); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem; }
     .section-eyebrow::before { content: ''; width: 1.5rem; height: 1px; background: var(--green); }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,3.5vw,3rem); font-weight: 400; line-height: 1.1; margin-bottom: 2rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,3.5vw,3rem); font-weight: 400; line-height: 1.1; margin-bottom: 2rem; color: #ffffff; }
     .section-title em { font-style: italic; color: var(--green); }
     .alt-bg { background: var(--bg1); }
 
@@ -322,7 +323,7 @@ const injectStyles = () => {
     .tl-current-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.2rem 0.7rem; background: rgba(110,231,183,0.12); border: 1px solid rgba(110,231,183,0.35); border-radius: 20px; font-size: 0.58rem; color: var(--green); letter-spacing: 0.08em; }
     .tl-current-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulseAnim 1.5s ease-in-out infinite; }
     .tl-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.3rem; flex-wrap: wrap; }
-    .tl-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+    .tl-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #ffffff; }
     .tl-org { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; }
     .tl-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; max-width: 620px; }
     .tl-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -340,7 +341,7 @@ const injectStyles = () => {
     .project-card-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.2rem; }
     .project-emoji { font-size: 2rem; }
     .project-year-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--muted); letter-spacing: 0.1em; padding: 0.25rem 0.6rem; background: var(--bg); border: 1px solid var(--border2); border-radius: 4px; }
-    .project-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; margin-bottom: 0.8rem; }
+    .project-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; margin-bottom: 0.8rem; color: #ffffff; }
     .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.78; margin-bottom: 1.3rem; }
     .project-footer { display: flex; justify-content: space-between; align-items: end; }
     .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -354,13 +355,13 @@ const injectStyles = () => {
     .edu-card:hover { transform: translateY(-4px); }
     .edu-bar { position: absolute; top: 0; left: 0; bottom: 0; width: 3px; border-radius: 3px 0 0 3px; }
     .edu-year { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--green); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
-    .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.35; margin-bottom: 0.6rem; }
+    .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.35; margin-bottom: 0.6rem; color: #ffffff; }
     .edu-school { font-size: 0.82rem; color: var(--muted); }
     .certs-row { display: flex; gap: 1rem; flex-wrap: wrap; }
     .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.8rem; display: flex; align-items: center; gap: 1rem; transition: border-color 0.3s, transform 0.3s; }
     .cert-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
     .cert-icon { font-size: 1.5rem; }
-    .cert-name { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.15rem; }
+    .cert-name { font-size: 0.92rem; font-weight: 500; margin-bottom: 0.15rem; color: #ffffff; }
     .cert-issuer { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--muted); letter-spacing: 0.08em; }
 
     /* CONTACT */
@@ -377,7 +378,7 @@ const injectStyles = () => {
     /* CONTACT FORM */
     .contact-form { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 2.5rem; position: relative; overflow: hidden; }
     .contact-form::before { content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, var(--green), transparent); }
-    .form-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .form-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.3rem; color: #ffffff; }
     .form-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 2rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-group { margin-bottom: 1.2rem; }
@@ -508,9 +509,7 @@ function Hero() {
         </div>
         <div>
           <div className="profile-card">
-            <div className="profile-avatar">
-               <img src={photo} alt="Nouhaila Chahmi" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "16px" }} />
-            </div>
+            <div className="profile-avatar">NC</div>
             <div className="profile-name">Nouhaila Chahmi</div>
             <div className="profile-title">ML · Data Science · Web Dev</div>
             <div className="profile-divider" />
@@ -683,7 +682,7 @@ function ContactForm() {
     setStatus("sending");
 
     try {
-      const response = await fetch("https://mon-portfolio-two-neon.vercel.app/send-email", {
+      const response = await fetch("https://portfolio-backend-nouhaila.vercel.app/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
