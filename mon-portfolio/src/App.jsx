@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import photo from "./assets/photo.jpeg";
 // ── DATA ──────────────────────────────────────────────────────────────────────
 const NAV_LINKS = ["À propos", "Compétences", "Expérience", "Projets", "Formation", "Contact"];
 
@@ -508,7 +508,9 @@ function Hero() {
         </div>
         <div>
           <div className="profile-card">
-            <div className="profile-avatar">NC</div>
+            <div className="profile-avatar">
+               <img src={photo} alt="Nouhaila Chahmi" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "16px" }} />
+            </div>
             <div className="profile-name">Nouhaila Chahmi</div>
             <div className="profile-title">ML · Data Science · Web Dev</div>
             <div className="profile-divider" />
@@ -679,11 +681,26 @@ function ContactForm() {
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
     setStatus("sending");
-    // Build mailto link
-    const body = `Nom: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
-    const mailtoLink = `mailto:chahminouhaila4@gmail.com?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoLink, "_blank");
-    setTimeout(() => setStatus("success"), 600);
+
+    try {
+      const response = await fetch("https://portfolio-backend-nouhaila.vercel.app/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error(data.error || "Erreur inconnue");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+      setStatus("error");
+    }
   };
 
   if (status === "success") {
@@ -691,8 +708,8 @@ function ContactForm() {
       <div className="contact-form">
         <div className="form-success">
           <div className="form-success-icon" style={{fontFamily:"'Playfair Display',serif", fontSize:"3rem", color:"var(--green)"}}>✓</div>
-          <div className="form-success-title">Message prêt !</div>
-          <div className="form-success-text">Votre messagerie s'est ouverte avec le message pré-rempli. Envoyez-le directement depuis votre client mail.</div>
+          <div className="form-success-title">Message envoyé !</div>
+          <div className="form-success-text">Votre message a bien été reçu. Je vous répondrai dans les 24–48h.</div>
           <button className="btn-ghost" style={{ marginTop: "1.5rem", cursor: "pointer", border: "1px solid var(--border2)", borderRadius: "8px", padding: "0.8rem 1.5rem" }} onClick={() => { setStatus("idle"); setForm({ name: "", email: "", subject: "", message: "" }); }}>
             Nouveau message
           </button>
@@ -742,8 +759,13 @@ function ContactForm() {
       </div>
 
       <button className="form-submit" onClick={handleSubmit} disabled={status === "sending"}>
-        {status === "sending" ? "⏳ Ouverture..." : "↗ Envoyer le message"}
+        {status === "sending" ? "⏳ Envoi en cours..." : "↗ Envoyer le message"}
       </button>
+      {status === "error" && (
+        <div className="form-error-msg" style={{ marginTop: "0.8rem", textAlign: "center", fontSize: "0.7rem" }}>
+          ⚠ Erreur d'envoi. Réessayez ou écrivez directement à chahminouhaila4@gmail.com
+        </div>
+      )}
     </div>
   );
 }
